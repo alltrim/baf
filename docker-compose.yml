@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  baf:
+    hostname: ${HOSTNAME}
+    image: alltrim/baf:8.3.19-1529_amd64
+    restart: always
+    networks:
+      - net
+    ports:
+      - "1540-1541:1540-1541"
+      - "1560-1591:1560-1591"
+      - "8083:80"
+    volumes:
+      - baf_data:/home/usrbaf/
+      - www_data:/var/www/
+      - apache2_data:/etc/apache2/
+
+  pg:
+    image: alltrim/postgres:15-1C
+    restart: always
+    networks:
+      - net
+    volumes:
+      - pg_data:/var/lib/pgpro/1c-15/data
+
+  #adminer:
+  #  image: adminer
+  #  restart: always
+  #  networks:
+  #    - net
+  #  ports:
+  #    - 18080:8080
+
+
+networks:
+  net:
+
+
+volumes:
+  baf_data:
+  www_data:
+  apache2_data:
+
+  pg_data:
+
+
